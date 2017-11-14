@@ -6,10 +6,30 @@ function alertThis() {
     alert("Alert Me!X")
 }
 
-var x = ""
+
+var myString = ""
 
 function clickMe(){
-    console.log("Print: ", $("#txt").val())
-    $('.results').html('Hello World!');
+    var x =  $("#txt").val()
+    console.log("Print: ", x)
 
+
+
+    $.ajax({
+        url:  '/toMe',
+        type: 'POST',
+        data: {
+            'input' : x
+        },
+        success: function(data){
+            myString +="<br> " + x + "<br>" + data
+            console.log("SUCCESS")
+            console.log(data)
+            document.getElementById("scrll").innerHTML = myString
+
+        },
+        error: function(){
+            alert("No cars found at given co-ordinates and/or time\nTry Re-Generating/Change to new co-ordinates");
+        }
+    })
 }

@@ -8,8 +8,12 @@ class MyScalatraServlet extends ScalatraServlet {
   get("/") {
     views.html.default()
   }
-  post("/") {
-    println (request.body)
+  post("/toMe"){
+    val inputText:String = request.getParameter("input")
+    val backEndOutPut = "backend received your command "
+    val ret = backEndOutPut + inputText
+    ret
+
   }
 
 }
