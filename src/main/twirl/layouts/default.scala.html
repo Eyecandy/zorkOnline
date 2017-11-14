@@ -1,0 +1,38 @@
+@(title: String, headline: String)(body: Html)
+<html>
+
+  <head>
+    <style>
+            div.scroll {
+              background-color: #00FFFF;
+              width: 400px;
+              height: 400px;
+              overflow: scroll;
+            }
+            div.hidden {
+              background-color: #00FF00;
+              width: 400px;
+              height: 400px;
+              overflow: hidden;
+            }
+    </style>
+    <script src="default.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>@title</title>
+  </head>
+  <body onload="alertThis()">
+    <h1>@headline</h1>
+    @body
+    <div>
+      @*<script src="../../webapp/default.js" type="text/javascript"></script>*@
+       @*<button onload="default()">Submit</button>*@
+      <div  class="scroll"> ${.results} </div>
+      <textarea name="" id="txt" cols="30" rows="10"></textarea>
+      <input type="button" name="Submit" onclick="clickMe()">
+
+    </div>
+
+
+  </body>
+
+</html>
