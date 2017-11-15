@@ -1,4 +1,4 @@
-package io.muic.app
+package application
 
 import org.scalatra.test.scalatest._
 import org.scalatest.FunSuiteLike

@@ -1,19 +1,17 @@
-package io.muic.app
+package application
 
 import org.scalatra._
+import command._
 
 
 class MyScalatraServlet extends ScalatraServlet {
-
+  val myParser = new MyParser()
   get("/") {
     views.html.default()
   }
   post("/toMe"){
     val inputText:String = request.getParameter("input")
-    val backEndOutPut = "backend received your command "
-    val ret = backEndOutPut + inputText
-    ret
+    myParser.frontEndParsing(inputText)
 
   }
-
 }

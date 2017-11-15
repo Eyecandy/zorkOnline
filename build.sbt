@@ -2,7 +2,7 @@ val ScalatraVersion = "2.6.1"
 
 organization := "com.example"
 
-name := "My Scalatra Web App"
+name := "zorkOnline"
 
 version := "0.1.0-SNAPSHOT"
 
