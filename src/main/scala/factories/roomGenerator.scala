@@ -23,6 +23,7 @@ object roomGenerator {
     println(room1.getName, room1.getStory)
     val roomDir = room1.getLocations
     roomDir.keys.foreach( key => println(roomDir.get(key).get.getName, roomDir.get(key).get.getStory ))
+
     room1
   }
 
