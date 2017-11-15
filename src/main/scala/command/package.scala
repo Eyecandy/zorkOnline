@@ -1,28 +1,37 @@
+import organism.player
+import organism.player.getRoom
+
 import scala.collection.mutable
 
 package object commands {
 
   val commandMap = new mutable.HashMap[String,String => String]()
-  commandMap.put("s",moveSouth)
-  commandMap.put("n",moveNorth)
-  commandMap.put("w",moveWest)
-  commandMap.put("e",moveEast)
+  commandMap.put("s",moveDir)
+  commandMap.put("n",moveDir)
+  commandMap.put("w",moveDir)
+  commandMap.put("e",moveDir)
+  commandMap.put("x",getRoomAndStory)
+  commandMap.put("l",lookAround)
 
 
-  def moveSouth(input:String): String = {
-    "go south"
+  def moveDir(input:String): String  = {
+    player.setDirection(input)
+    val dirName= getRoom.getLocations.get(input).get.getName
+    val dirStory = getRoom.getLocations.get(input).get.getStory
+    //loop through items
+    val ret =  "direction: " + dirName + ": " + dirStory
+    ret
   }
 
-  def moveNorth(input:String): String = {
-    "go north"
+  def getRoomAndStory(input:String): String = {
+    val roomName = getRoom.getName
+    val roomStory = getRoom.getStory
+    val ret = roomName + ": " + roomStory
+    ret
   }
 
-  def moveEast(input:String): String = {
-    "go East"
-  }
-
-  def moveWest(input:String): String = {
-    "go West"
+  def lookAround(input:String): String = {
+    "look around"
   }
 
 }

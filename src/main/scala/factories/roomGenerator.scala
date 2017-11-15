@@ -11,18 +11,17 @@ object roomGenerator {
   private val west = "West"
 
   def createAroom():Room = {
-    val r1ls = new Direction(south,"cool");
-    val r1le = new Direction(east,"yolo");
-    val r1lw = new Direction(west,"heyhey");
-    val r1ln = new Direction(north,"snowy");
+    val r1ls = new Direction(south,"a wind strong wind is coming from above");
+    val r1le = new Direction(east,"you are near the torch");
+    val r1lw = new Direction(west,"staircases lead up in a spiral");
+    val r1ln = new Direction(north,"a barricaded door is in front of you");
 
     val r1Dir= new mutable.HashMap[String,Direction]()
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
 
-    val room1 = new Room("ancient","coolStoryBruh",r1Dir)
-    println(room1.getName, room1.getStory)
+    val room1 = new Room("Location: Bottom of tower","darkness covers the room, except for a torch's fire",r1Dir)
+   // println(room1.getName, room1.getStory)
     val roomDir = room1.getLocations
-    roomDir.keys.foreach( key => println(roomDir.get(key).get.getName, roomDir.get(key).get.getStory ))
 
     room1
   }

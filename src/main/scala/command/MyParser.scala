@@ -2,14 +2,17 @@ package command
 
 class MyParser {
   def startParsing() =  {
+
     val scanner = new java.util.Scanner(System.in)
     while (true) {
       val sc = scanner.nextLine()
-      val commFunc: Option[String => String] = commands.commandMap.get(sc)
+      val treatedInput = sc.toLowerCase().trim()
+      println(sc)
+      val commFunc: Option[String => String] = commands.commandMap.get(treatedInput)
       commFunc match {
         case None => println("Invalid Command")
         case _ => {
-          val successMessage:String = commFunc.get("s")
+          val successMessage:String = commFunc.get(treatedInput)
           println(successMessage)
         }
       }
@@ -17,11 +20,12 @@ class MyParser {
   }
 
   def frontEndParsing(input:String) = {
-    val commFunc: Option[String => String] = commands.commandMap.get(input)
-    commFunc match {
+    val treatedInput = input.toLowerCase().trim()
+    val commandFunc: Option[String => String] = commands.commandMap.get(treatedInput)
+    commandFunc match {
       case None => "Invalid Command"
       case _ => {
-        val successMessage:String = commFunc.get("s")
+        val successMessage:String = commandFunc.get(treatedInput)
         successMessage
       }
     }

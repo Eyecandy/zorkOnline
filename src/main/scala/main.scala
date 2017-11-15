@@ -9,7 +9,7 @@ object main extends App{
   def startNewGame() =  {
     val game = new GameRunner()
     game.initiateEverything()
-    roomGenerator.createAroom()
+    //roomGenerator.createAroom()
   }
   startNewGame()
 }
