@@ -1,9 +1,9 @@
-# My Scalatra Web App #
+# Zork Online #
 
 ## Build & Run ##
 
 ```sh
-$ cd My_Scalatra_Web_App
+$ cd zorkOnline
 $ ./sbt
 > jetty:start
 > browse

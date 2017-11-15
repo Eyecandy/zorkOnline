@@ -25,6 +25,4 @@ package object commands {
     "go West"
   }
 
-
-
 }
