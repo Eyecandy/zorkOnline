@@ -1,8 +1,8 @@
 package world
 
 import scala.collection.mutable
-
-class Room(nameC:String,storyC:String,directionsC:mutable.HashMap[String,Direction]) {
+@SerialVersionUID(114L)
+class Room(nameC:String,storyC:String,directionsC:mutable.HashMap[String,Direction]) extends Serializable {
   private val name = nameC
   private val story = storyC
   private val directions = directionsC

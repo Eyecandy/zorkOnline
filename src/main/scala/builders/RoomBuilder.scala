@@ -18,6 +18,7 @@ object RoomBuilder {
 
     val r1Dir= new mutable.HashMap[String,Direction]()
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
+    r1Dir.put(south,r1ls);r1Dir.put(west,r1lw);r1Dir.put(east,r1le);r1Dir.put(north,r1ln);
 
     val room1 = new Room("Location: Bottom of tower","darkness covers the room, except for a torch's fire",r1Dir)
    // println(room1.getName, room1.getStory)

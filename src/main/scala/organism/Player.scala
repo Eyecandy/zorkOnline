@@ -5,16 +5,19 @@ import world.{Direction, Room}
 import scala.collection.mutable
 import builders.RoomBuilder
 
-object Player {
+@SerialVersionUID(114L)
+class Player extends Serializable {
+
   private var hp = 100
   private var mp = 50
 //  private val inventory = new mutable.HashMap[String, (Item, Int)]()
   private val inventory = new mutable.HashMap[String, Int]() // fake one
   private val spells = new mutable.HashMap[String, (Int, Int)]()
 
-  private[this] var room: Room = RoomBuilder.createAroom()
+  private var room: Room = RoomBuilder.createAroom()
 
-  private var directionChosen:Direction = room.getLocations.get("n").get
+  var directionChosen:Direction = room.getLocations.get("n").get
+
 
   def getRoom: Room = room
 
@@ -28,9 +31,5 @@ object Player {
   def getDirection(): Direction = {
     directionChosen
   }
-
-
-
-
 
 }
