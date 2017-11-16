@@ -11,7 +11,6 @@ package object Commands {
 
   var player = GameRunner.player
 
-
   val commandMap = new mutable.HashMap[String,String => String]()
   commandMap.put("s",moveDir)
   commandMap.put("n",moveDir)
@@ -57,11 +56,9 @@ package object Commands {
   def loadCmd(fileName:String): String = {
     try {
       val loadedData = ResourceManager.load("save1.txt").asInstanceOf[SaveData]
-      println(loadedData.x)
-      println(loadedData.player.directionChosen.getName)
       player = loadedData.player
-
     }
+
     "loaded"
   }
 }

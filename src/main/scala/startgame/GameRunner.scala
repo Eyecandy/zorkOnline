@@ -8,14 +8,8 @@ object GameRunner {
   val player = new Player()
 
   def initiateEverything() = {
-
-
-    println("initiate below: ")
-    val myParser = new MyParser()
+    MyParser.startParsing()
     println(player.getRoom.getName + ": " + player.getRoom.getStory)
-
-    //roomGenerator.createAroom()
-    myParser.startParsing()
   }
 
 

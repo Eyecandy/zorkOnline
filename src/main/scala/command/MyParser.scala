@@ -1,6 +1,6 @@
 package command
 
-class MyParser {
+object MyParser {
   def startParsing() =  {
 
     val scanner = new java.util.Scanner(System.in)
