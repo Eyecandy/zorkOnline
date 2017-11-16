@@ -3,7 +3,7 @@ package application
 import org.scalatra.test.scalatest._
 import org.scalatest.FunSuiteLike
 
-class MyScalatraServletTests extends ScalatraSuite with FunSuiteLike {
+class gitMyScalatraServletTests extends ScalatraSuite with FunSuiteLike {
 
   addServlet(classOf[MyScalatraServlet], "/*")
 

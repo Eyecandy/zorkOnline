@@ -12,6 +12,5 @@ class MyScalatraServlet extends ScalatraServlet {
   post("/toMe"){
     val inputText:String = request.getParameter("input")
     myParser.frontEndParsing(inputText)
-
   }
 }
