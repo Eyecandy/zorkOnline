@@ -8,7 +8,7 @@ class MyParser {
       val sc = scanner.nextLine()
       val treatedInput = sc.toLowerCase().trim()
       println(sc)
-      val commFunc: Option[String => String] = commands.commandMap.get(treatedInput)
+      val commFunc: Option[String => String] = Commands.commandMap.get(treatedInput)
       commFunc match {
         case None => println("Invalid Command")
         case _ => {
@@ -21,7 +21,7 @@ class MyParser {
 
   def frontEndParsing(input:String) = {
     val treatedInput = input.toLowerCase().trim()
-    val commandFunc: Option[String => String] = commands.commandMap.get(treatedInput)
+    val commandFunc: Option[String => String] = Commands.commandMap.get(treatedInput)
     commandFunc match {
       case None => "Invalid Command"
       case _ => {

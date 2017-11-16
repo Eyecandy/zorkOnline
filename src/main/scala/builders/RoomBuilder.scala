@@ -1,10 +1,10 @@
-package factories
+package builders
 
 import world._
 
 import scala.collection.mutable
 
-object roomGenerator {
+object RoomBuilder {
   private val south= "South"
   private val north= "North"
   private val east = "East"
@@ -22,7 +22,7 @@ object roomGenerator {
     val room1 = new Room("Location: Bottom of tower","darkness covers the room, except for a torch's fire",r1Dir)
    // println(room1.getName, room1.getStory)
     val roomDir = room1.getLocations
-
+    
     room1
   }
 

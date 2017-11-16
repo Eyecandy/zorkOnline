@@ -3,16 +3,16 @@ package organism
 import world.{Direction, Room}
 
 import scala.collection.mutable
-import factories.roomGenerator
+import builders.RoomBuilder
 
-object player {
+object Player {
   private var hp = 100
   private var mp = 50
 //  private val inventory = new mutable.HashMap[String, (Item, Int)]()
   private val inventory = new mutable.HashMap[String, Int]() // fake one
   private val spells = new mutable.HashMap[String, (Int, Int)]()
 
-  private[this] var room: Room = roomGenerator.createAroom()
+  private[this] var room: Room = RoomBuilder.createAroom()
 
   private var directionChosen:Direction = room.getLocations.get("n").get
 

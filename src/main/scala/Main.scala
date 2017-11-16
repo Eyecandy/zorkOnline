@@ -2,9 +2,9 @@ package io.muic
 
 import startgame.GameRunner
 
-import factories._
+import builders._
 
-object main extends App{
+object Main extends App{
 
   def startNewGame() =  {
     val game = new GameRunner()

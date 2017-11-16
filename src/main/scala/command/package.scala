@@ -1,9 +1,9 @@
-import organism.player
-import organism.player.getRoom
+import organism.Player
+import organism.Player.getRoom
 
 import scala.collection.mutable
 
-package object commands {
+package object Commands {
 
   val commandMap = new mutable.HashMap[String,String => String]()
   commandMap.put("s",moveDir)
@@ -15,7 +15,7 @@ package object commands {
 
 
   def moveDir(input:String): String  = {
-    player.setDirection(input)
+    Player.setDirection(input)
     val dirName= getRoom.getLocations.get(input).get.getName
     val dirStory = getRoom.getLocations.get(input).get.getStory
     //loop through items
