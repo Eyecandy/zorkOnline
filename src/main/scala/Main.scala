@@ -7,8 +7,8 @@ import builders._
 object Main extends App{
 
   def startNewGame() =  {
-    val game = new GameRunner()
-    game.initiateEverything()
+
+    GameRunner.initiateEverything()
     //roomGenerator.createAroom()
   }
   startNewGame()

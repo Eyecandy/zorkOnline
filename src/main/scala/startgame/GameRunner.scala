@@ -4,13 +4,13 @@ package startgame
 import command.MyParser
 import organism.Player
 
-class GameRunner {
-  def initiateEverything() = {
-    println("initiate below: ")
-    val myParser = new MyParser
-    println(Player.getRoom.getName + ": " + Player.getRoom.getStory)
+object GameRunner {
+  val player = new Player()
 
-    //roomGenerator.createAroom()
-    myParser.startParsing()
+  def initiateEverything() = {
+    MyParser.startParsing()
+    println(player.getRoom.getName + ": " + player.getRoom.getStory)
   }
+
+
 }

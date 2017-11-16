@@ -1,7 +1,7 @@
 package world
 
-
-class Direction(nameC:String,storyC:String) {
+@SerialVersionUID(114L)
+class Direction(nameC:String,storyC:String) extends Serializable {
   private val name = nameC
   private val story = storyC
 
