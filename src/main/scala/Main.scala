@@ -7,7 +7,6 @@ import builders._
 object Main extends App{
 
   def startNewGame() =  {
-
     GameRunner.initiateEverything()
     //roomGenerator.createAroom()
   }

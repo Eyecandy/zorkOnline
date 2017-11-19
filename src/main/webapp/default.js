@@ -24,7 +24,7 @@ function clickMe(){
             document.getElementById("scrll").innerHTML = myString
         },
         error: function(){
-            alert("No cars found at given co-ordinates and/or time\nTry Re-Generating/Change to new co-ordinates");
+            alert("Error");
         }
     })
 }

@@ -14,7 +14,7 @@ class Player extends Serializable {
   private val inventory = new mutable.HashMap[String, Int]() // fake one
   private val spells = new mutable.HashMap[String, (Int, Int)]()
 
-  private var room: Room = RoomBuilder.createAroom()
+  private var room: Room = RoomBuilder.allRooms.get(0).get
 
   var directionChosen:Direction = room.getLocations.get("n").get
 
@@ -23,7 +23,7 @@ class Player extends Serializable {
 
   def getInventory = inventory
 
-  def setRoom(room:Room) = this.room = room
+  def setRoom(room:Room) = {this.room = room}
 
   def setDirection(dir:String): Unit =    {
     directionChosen = room.getLocations.get(dir).get
