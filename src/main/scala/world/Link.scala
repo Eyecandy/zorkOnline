@@ -14,12 +14,9 @@ class Link(lockedC:Boolean,room1C:Room,room2C:Room,nameC:String,storyC:String) e
 
     if (player.getRoom.getName.equals(room1.getName)) {
       player.setRoom(room2)
-      println("changed to room2")
     }
     else {
       player.setRoom(room1)
-      println("changed to room1")
-
     }
     val ret = "You enter a new Room <br>" + player.getRoom.getName + ":" + player.getRoom.getStory
     ret

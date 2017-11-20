@@ -2,7 +2,6 @@ package command
 
 object MyParser {
   def startParsing() = {
-
     val scanner = new java.util.Scanner(System.in)
     while (true) {
       val sc = scanner.nextLine()
@@ -42,7 +41,6 @@ object MyParser {
         cmdFunc(arg)
       }
       case _ => "input is too long"
-
     }
   }
 }

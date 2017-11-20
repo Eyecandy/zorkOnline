@@ -1,5 +1,5 @@
 function hello() {
-    console.log("hello there noob")
+    console.log("hello")
 }
 
 function alertThis() {
@@ -18,7 +18,7 @@ function clickMe(){
             'input' : x
         },
         success: function(data){
-            myString +="<br> " + x + "<br>" + data
+            myString +="<br>" + x + "<br>" + data
             console.log("SUCCESS")
             console.log(data)
             document.getElementById("scrll").innerHTML = myString
@@ -27,4 +27,28 @@ function clickMe(){
             alert("Error");
         }
     })
+
+
+}
+
+function getPlayerDirOnLoad() {
+
+    $.ajax({
+        url:  '/toMe',
+        type: 'POST',
+        data: {
+            'input' : 'x'
+        },
+
+        success: function(data){
+            myString += data
+            console.log("SUCCESS")
+            console.log(data)
+            document.getElementById("scrll").innerHTML = myString
+        },
+        error: function(){
+            alert("Error");
+        }
+    })
+
 }

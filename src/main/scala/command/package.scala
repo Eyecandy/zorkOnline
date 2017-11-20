@@ -49,28 +49,26 @@ package object Commands {
     player.setDirection(input)
     val x = player.getDirection().itemMap.valuesIterator.toList
     val items = x.flatMap(b => List("<br>" + b.name + ": " + b.story + "<br>"))
-    if (items.isEmpty) {
+    if (items.length == 0) {
       val ret = "direction: " + dirName + ": " + dirStory
       ret
     }
     else {
-      val ret = "direction: " + dirName + ": " + dirStory + items
+      val ret = "direction: " + dirName + ": " + dirStory + items.head
       ret
-
     }
-
-
   }
 
   def getRoomAndStory(input: String): String = {
     val roomName = player.getRoom.getName
     val roomStory = player.getRoom.getStory
-    val ret = roomName + ": " + roomStory
+    val ret = roomName + ": " + roomStory + "<br>" + player.getDirection().getName + ": "+player.getDirection().getStory
     ret
   }
 
   def lookAround(input: String): String = {
-    player.getDirection().getName
+    val dir  = player.getDirection()
+    dir.getName + ": " + dir.getStory
 
   }
 
@@ -84,9 +82,8 @@ package object Commands {
       ResourceManager.save(saveData, fileName)
     }
     catch {
-
       case ex: FileNotFoundException => {
-        println("file not fonund exception in saveCmd func in Commands")
+        println("file not found exception in saveCmd func in Commands")
       }
       case ex: IOException => {
         println("IO Exception")
@@ -110,7 +107,6 @@ package object Commands {
         println("IO Exception")
       }
     }
-
-    "loaded"
+    "loaded" + "<br>" + getRoomAndStory("Whatever string")
   }
 }

@@ -16,7 +16,6 @@ object ResourceManager {
 
 
     def load(fileName: String) = {
-
       val path = Paths.get("save1.txt")
       val file = Files.newInputStream(path)
       val ois = new ObjectInputStream(file)
