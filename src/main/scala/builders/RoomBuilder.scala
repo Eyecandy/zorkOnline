@@ -3,28 +3,25 @@ package builders
 import world._
 
 import scala.collection.mutable
-
 object RoomBuilder {
-  private val south= "South"
-  private val north= "North"
-  private val east = "East"
-  private val west = "West"
+  val allRooms = mutable.HashMap[Int,Room]()
 
-  def createAroom():Room = {
-    val r1ls = new Direction(south,"a wind strong wind is coming from above");
-    val r1le = new Direction(east,"you are near the torch");
-    val r1lw = new Direction(west,"staircases lead up in a spiral");
-    val r1ln = new Direction(north,"a barricaded door is in front of you");
+  def startingRoom():Room = {
+    val r1Dir= DirectionBuilder.r1Dir
+    val room1 = new Room("Location: Bottom of tower",
+      "darkness covers the room, except for a torch's fire",
+      r1Dir)
 
-    val r1Dir= new mutable.HashMap[String,Direction]()
-    r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
-    r1Dir.put(south,r1ls);r1Dir.put(west,r1lw);r1Dir.put(east,r1le);r1Dir.put(north,r1ln);
-
-    val room1 = new Room("Location: Bottom of tower","darkness covers the room, except for a torch's fire",r1Dir)
-   // println(room1.getName, room1.getStory)
-    val roomDir = room1.getLocations
-    
+    allRooms.put(0,room1)
     room1
   }
 
+  def secondRoom():Room = {
+    val r1Dir= DirectionBuilder.r2Dir
+    val room2 = new Room("Location: Mid-tower",
+      "smokes is all over the place....",
+      r1Dir)
+    allRooms.put(1,room2)
+    room2
+  }
 }
