@@ -5,7 +5,6 @@ import command._
 
 
 class MyScalatraServlet extends ScalatraServlet {
-
   get("/") {
     views.html.default()
   }
