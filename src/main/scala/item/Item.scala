@@ -2,8 +2,7 @@ package item
 import organism._
 abstract class Item(s:String) {
   private val name = s
-  private val description = String
-
+ // private val description = String
 
 }
 trait equipment{

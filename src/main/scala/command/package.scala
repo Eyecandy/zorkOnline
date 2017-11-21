@@ -26,13 +26,11 @@ package object Commands {
 
 
   def useLink(input: String): String = {
-    val k = player.getDirection().itemMap
+
     val output = player.getDirection().itemMap.get(input).getOrElse(null)
-    println(output, k)
     if (output != null) {
-      print(output.getName)
-      val x = output.asInstanceOf[Link].teleport(player, player.getRoom)
-      x
+      val ret = output.asInstanceOf[Link].teleport(player, player.getRoom)
+      ret
     }
     else {
       "No such thing can opened"

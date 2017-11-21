@@ -6,6 +6,6 @@ class Monster(name: String) {
   private var mp = 50
   private var attack = 50
   private var defence = 10
-  private val itemDrop = String // Item
+  //private val itemDrop = String // Item
 
 }
