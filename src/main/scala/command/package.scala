@@ -28,7 +28,36 @@ package object Commands {
   commandMap.put("pick",pickup)
   commandMap.put("inventory",checkInventory)
   commandMap.put("equip",equip)
+  commandMap.put("throw",throwItem)
+  commandMap.put("stats",getPlayerStats)
 
+  def throwItem(input:String): String = {
+    val itemToThrow: ItemCount = player.getInventory.getOrElse(input,null)
+    itemToThrow match {
+      case null => "No such item in inventory"
+      case _ => {
+        val currDirItemMap = player.getDirection().itemMap
+        val item = itemToThrow.item
+        currDirItemMap.put(item.name,item)
+        player.getInventory.remove(item.name)
+        "threw away " + item.name
+      }
+    }
+  }
+
+  def getPlayerStats(input:String): String = {
+
+    var stats = "Dmg: " + player.attack + " max hp: " + player.maxHP + " max mana: " + player.maxMP + " curr hp: " +
+      player.hp + " curr Mana: " + player.mp  + " def: " + player.defence
+
+    if (player.armorSlot.isDefined) {
+      stats += " armor equipped " + player.armorSlot.get.name
+    }
+    if (player.weaponSlot.isDefined) {
+      stats += " weapon equipped " + player.weaponSlot.get.name
+    }
+    stats
+  }
 
 
   def equip(input: String): String = {

@@ -6,21 +6,22 @@ import scala.collection.mutable
 import builders.RoomBuilder
 @SerialVersionUID(114L)
 case class ItemCount(item: Item, count: Int) extends Serializable
+@SerialVersionUID(114L)
+case class Spell(name:String,dmg:Int,manaCost:Int) extends Serializable
 class Player extends Serializable {
 
-  private var maxHP = 100
-  private var maxMP = 50
-  private var hp = 100
-  private var mp = 50
-  private var attack = 50
-  private var defence = 10
-  private var weaponSlot:Option[Weapon] = None
-  private var armorSlot:Option[Armor] = None
+  var maxHP = 100
+  var maxMP = 50
+  var hp = 100
+  var mp = 50
+  var attack = 50
+  var defence = 10
+  var weaponSlot:Option[Weapon] = None
+  var armorSlot:Option[Armor] = None
   private val inventory = new mutable.HashMap[String, ItemCount]()
-  private val spells = new mutable.HashMap[String, (Int, Int)]()
+  val spells = new mutable.HashMap[String, Spell]()
 
   private var room: Room = RoomBuilder.allRooms(0)
-
   var directionChosen:Direction = room.getLocations("n")
 
 
@@ -37,7 +38,6 @@ class Player extends Serializable {
           (inc: Int) => defence += inc)
     }
 
-
     def update[T <: Equipment] (slot: Option[T],
                                 updateSlot: T  => Unit,
                                 updateParameter: Int => Unit): Unit = {
@@ -50,7 +50,6 @@ class Player extends Serializable {
       updateSlot(e.asInstanceOf[T])
     }
   }
-
 
 //    e match {
 //    case w: Weapon => {
@@ -111,8 +110,6 @@ class Player extends Serializable {
     directionChosen
   }
 
-  def pickUp(): Unit = {
 
-  }
 
 }

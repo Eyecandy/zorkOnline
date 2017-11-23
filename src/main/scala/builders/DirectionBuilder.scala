@@ -31,6 +31,8 @@ object DirectionBuilder {
     val r1le = new Direction(east,"red");
     val r1lw = new Direction(west,"yellow");
     val r1ln = new Direction(north,"orange");
+    val hammer = new Weapon("hammer","it's not so shiny",10);
+    r1ls.itemMap.put(hammer.getName,hammer)
     val r1Dir= new mutable.HashMap[String,Direction]()
 
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
