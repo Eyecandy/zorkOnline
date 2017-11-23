@@ -8,6 +8,7 @@ import builders.RoomBuilder
 @SerialVersionUID(114L)
 class Player extends Serializable {
 
+  case class ItemCount(item: Item, count: Int)
   private var maxHP = 100
   private var maxMP = 50
   private var hp = 100
@@ -42,22 +43,30 @@ class Player extends Serializable {
     }
   }
 
-  def recover(r: Recovery)= r match{
-    case p: Potion => {
-      val recoverAmount = p.getParameter()
-      if (hp+recoverAmount < maxHP){
-        hp = hp+recoverAmount
-      }
-      else hp = maxHP
-    }
-    case m: ManaPotion => {
-      val recoverAmount = m.getParameter()
-      if (mp+recoverAmount < maxMP){
-        mp = mp+recoverAmount
-      }
-      else mp = maxMP
+  def recover(r: Recovery)= {
+    /*
+    val recoverAmount = r match {
+
     }
 
+    hp = math.min(maxHP, hp + recoverAmount)
+  }
+  */
+
+    r match {
+      //val recoverAmount =maath
+      case p: Potion => {
+        val recoverAmount = p.getParameter()
+        hp = math.min(maxHP, hp + recoverAmount)
+      }
+      case m: ManaPotion => {
+        val recoverAmount = m.getParameter()
+        if (mp + recoverAmount < maxMP) {
+          mp = mp + recoverAmount
+        }
+        else mp = maxMP
+      }
+    }
   }
 
   def use(it: Item)=it match { // assuming item exist in inventory

@@ -3,10 +3,13 @@ package item
 class Equipment(s:String, des:String, para:Int) extends Item(s:String, des: String){
   override val name = s
   val description = des
-  private val parameter = para
-  override def canEquip = true
+  val parameter = para
+  val canEquip = true
   def getParameter()=parameter
 
+
+
+  override def isEquip: Boolean = true
 }
 
 class Weapon(s:String, des:String, para:Int) extends Equipment(s:String, des:String, para:Int)

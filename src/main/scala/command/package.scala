@@ -4,7 +4,7 @@ import builders.LevelBuilder.{east, west}
 import builders.RoomBuilder
 import memorycard.{ResourceManager, SaveData}
 import startgame.GameRunner
-import world.Link
+import world.{FatherOfObjects, Link}
 
 import scala.collection.mutable
 import scala.util.Random
@@ -27,7 +27,7 @@ package object Commands {
 
   def useLink(input: String): String = {
     val k = player.getDirection().itemMap
-    val output = player.getDirection().itemMap.get(input).getOrElse(null)
+    val output: FatherOfObjects = player.getDirection().itemMap.getOrElse(input, null)
     println(output, k)
     if (output != null) {
       print(output.getName)
