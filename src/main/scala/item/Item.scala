@@ -1,15 +1,15 @@
 package item
-import organism._
-abstract class Item(s:String) {
-  private val name = s
-  private val description = String
+import world._
+abstract class Item(s:String, des: String) extends FatherOfObjects {
+  override val name: String = s
+  override var story: String = des
 
 
 }
-trait equipment{
-  def equip(playerPara: Int):Int =0
-}
-
-trait recovery{
-  def use(playerPara: Int, currentPara: Int): Int = 0
-}
+//trait equipment{
+//  def equip(playerPara: Int):Int =0
+//}
+//
+//trait recovery{
+//  def use(playerPara: Int, currentPara: Int): Int = 0
+//}
