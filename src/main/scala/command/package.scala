@@ -30,7 +30,7 @@ package object Commands {
   commandMap.put("equip",equip)
 
 
-<<<<<<< HEAD
+
   def equip(input: String): String = {
     val itemCount= player.getInventory.getOrElse(input,null)
 
@@ -45,34 +45,30 @@ package object Commands {
 
 
   def pickup(input:String):String = {
-    val fatherOB: FatherOfObjects = player.getDirection().itemMap.getOrElse(input,null)
+    val fatherOB: FatherOfObjects = player.getDirection().itemMap.getOrElse(input, null)
     if (fatherOB != null && fatherOB.pickable) {
       val item = fatherOB.asInstanceOf[Item]
       val inventory = player.getInventory
 
       inventory.contains(item.name) match {
-        case false =>  inventory.put(item.name,ItemCount(item,1))
+        case false => inventory.put(item.name, ItemCount(item, 1))
         case true => {
           val invitem = inventory.get(item.name)
-          val incrQuantityItem  = ItemCount(item,invitem.get.count +1)
-          inventory.put(item.name,incrQuantityItem)
+          val incrQuantityItem = ItemCount(item, invitem.get.count + 1)
+          inventory.put(item.name, incrQuantityItem)
         }
       }
       player.getDirection().itemMap.remove(item.name)
       "You picked up" + item.name
-=======
-  def useLink(input: String): String = {
-
-    val output = player.getDirection().itemMap.get(input).getOrElse(null)
-    if (output != null) {
-      val ret = output.asInstanceOf[Link].teleport(player, player.getRoom)
-      ret
->>>>>>> fronEnd
     }
     else {
-      "no such item here"
+      "None"
     }
+
   }
+
+
+
 
   def checkInventory(inputNotUsed:String) = {
     player.getInventory.isEmpty match {
