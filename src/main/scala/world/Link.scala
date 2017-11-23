@@ -8,7 +8,9 @@ class Link(lockedC:Boolean,room1C:Room,room2C:Room,nameC:String,storyC:String) e
   override var story = storyC
   val room1 = room1C
   val room2 = room2C
-  override def canEquip = false
+  override val pickable = false
+  override def isEquip = false
+
 
   def teleport(player:Player, currentRoom: Room): String = {
 
@@ -22,4 +24,6 @@ class Link(lockedC:Boolean,room1C:Room,room2C:Room,nameC:String,storyC:String) e
     ret
 
   }
+
+
 }
