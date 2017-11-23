@@ -1,4 +1,5 @@
 package item
+<<<<<<< HEAD
 import world._
 abstract class Item(s:String, des: String) extends FatherOfObjects {
   override val name: String = s
@@ -6,6 +7,12 @@ abstract class Item(s:String, des: String) extends FatherOfObjects {
   override val pickable: Boolean = true
 
   override def isEquip = false
+=======
+import organism._
+abstract class Item(s:String) {
+  private val name = s
+ // private val description = String
+>>>>>>> fronEnd
 
 
 }

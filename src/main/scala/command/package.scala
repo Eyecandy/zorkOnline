@@ -30,6 +30,7 @@ package object Commands {
   commandMap.put("equip",equip)
 
 
+<<<<<<< HEAD
   def equip(input: String): String = {
     val itemCount= player.getInventory.getOrElse(input,null)
 
@@ -59,6 +60,14 @@ package object Commands {
       }
       player.getDirection().itemMap.remove(item.name)
       "You picked up" + item.name
+=======
+  def useLink(input: String): String = {
+
+    val output = player.getDirection().itemMap.get(input).getOrElse(null)
+    if (output != null) {
+      val ret = output.asInstanceOf[Link].teleport(player, player.getRoom)
+      ret
+>>>>>>> fronEnd
     }
     else {
       "no such item here"
