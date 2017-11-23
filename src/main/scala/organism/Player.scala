@@ -19,11 +19,13 @@ class Player extends Serializable {
   private val inventory = new mutable.HashMap[String, ItemCount]()
   private val spells = new mutable.HashMap[String, (Int, Int)]()
 
-  private var room: Room = RoomBuilder.allRooms.get(0).get
+  private var room: Room = RoomBuilder.allRooms(0)
 
-  var directionChosen:Direction = room.getLocations.get("n").get
+  var directionChosen:Direction = room.getLocations("n")
 
-  def equip(e: Equipment)= {
+
+
+  def equip[T <: Equipment](e: T): Unit = {
     e match {
       case _: Weapon =>
         update(weaponSlot,
@@ -37,15 +39,15 @@ class Player extends Serializable {
 
 
     def update[T <: Equipment] (slot: Option[T],
-                                updateSlot: T => Unit,
+                                updateSlot: T  => Unit,
                                 updateParameter: Int => Unit): Unit = {
       updateParameter(e.parameter)
 
-      if (!slot.isEmpty) {
+      if (slot.isDefined) {
         val old: T = slot.get
         inventory.put(old.getName, ItemCount(old, 1))
       }
-      updateSlot(e)
+      updateSlot(e.asInstanceOf[T])
     }
   }
 

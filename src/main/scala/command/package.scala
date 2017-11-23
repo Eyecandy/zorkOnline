@@ -2,7 +2,7 @@ import java.io.{FileNotFoundException, IOException}
 
 import builders.LevelBuilder.{east, west}
 import builders.RoomBuilder
-import item.Item
+import item.{Equipment, Item}
 import memorycard.{ResourceManager, SaveData}
 import startgame.GameRunner
 import organism._
@@ -27,6 +27,21 @@ package object Commands {
   commandMap.put("open", useLink)
   commandMap.put("pick",pickup)
   commandMap.put("inventory",checkInventory)
+  commandMap.put("equip",equip)
+
+
+  def equip(input: String): String = {
+    val itemCount= player.getInventory.getOrElse(input,null)
+
+    itemCount match{
+      case null => "No such item in inventory"
+      case _ => {
+        player.use(itemCount.item)
+        "equipped " + itemCount.item.name
+      }
+    }
+  }
+
 
   def pickup(input:String):String = {
     val fatherOB: FatherOfObjects = player.getDirection().itemMap.getOrElse(input,null)
@@ -56,8 +71,6 @@ package object Commands {
       case false => player.getInventory.valuesIterator.foldLeft("")( (acc,item) => acc + item.item.name +" quantity: "+ item.count + "<br>")
     }
   }
-
-
 
   def useLink(input: String): String = {
     val k = player.getDirection().itemMap
