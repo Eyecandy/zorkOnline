@@ -14,7 +14,6 @@ object ResourceManager {
       oos.writeObject(data)
     }
 
-
     def load(fileName: String) = {
       val path = Paths.get("save1.txt")
       val file = Files.newInputStream(path)

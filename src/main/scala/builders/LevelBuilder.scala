@@ -19,8 +19,6 @@ object LevelBuilder {
     room0.getLocations.get(east).get.itemMap.put(link0.name,link0)
     room1.getLocations.get(west).get.itemMap.put(link0.name,link0)
 
-
-
   }
 
 }

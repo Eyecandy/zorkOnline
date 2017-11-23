@@ -4,11 +4,11 @@ import world.{Direction, Room}
 import item._
 import scala.collection.mutable
 import builders.RoomBuilder
-
+@SerialVersionUID(114L)
+case class ItemCount(item: Item, count: Int) extends Serializable
 @SerialVersionUID(114L)
 class Player extends Serializable {
 
-  case class ItemCount(item: Item, count: Int)
   private var maxHP = 100
   private var maxMP = 50
   private var hp = 100
@@ -17,7 +17,7 @@ class Player extends Serializable {
   private var defence = 10
   private var weaponSlot:Option[Weapon] = None
   private var armorSlot:Option[Armor] = None
-  private val inventory = new mutable.HashMap[String, (Item, Int)]()
+  private val inventory = new mutable.HashMap[String, ItemCount]()
   private val spells = new mutable.HashMap[String, (Int, Int)]()
 
   private var room: Room = RoomBuilder.allRooms.get(0).get
@@ -30,7 +30,7 @@ class Player extends Serializable {
       if (weaponSlot == None) weaponSlot = Some(w)
       else{
         val oldWeapon = weaponSlot.get
-        inventory.put(oldWeapon.getName, (oldWeapon, 1))
+        inventory.put(oldWeapon.getName, ItemCount(oldWeapon, 1))
       }
     }
     case a: Armor => {
@@ -38,7 +38,7 @@ class Player extends Serializable {
       if (armorSlot == None) armorSlot = Some(a)
       else{
         val oldArmor = armorSlot.get
-        inventory.put(oldArmor.getName, (oldArmor, 1))
+        inventory.put(oldArmor.getName, ItemCount(oldArmor, 1))
       }
     }
   }
@@ -75,13 +75,12 @@ class Player extends Serializable {
       equip(e)
     }
     case r: Recovery => {
-      val itemQuantity = inventory(r.getName)._2
+      val itemQuantity = inventory(r.getName).count
       if (itemQuantity == 1) inventory.remove(r.getName)
-      else inventory.update(r.getName, (r, itemQuantity-1))
+      else inventory.update(r.getName, ItemCount(r, itemQuantity-1))
       recover(r)
     }
   }
-
 
 
   def getRoom: Room = room
@@ -95,6 +94,10 @@ class Player extends Serializable {
   }
   def getDirection(): Direction = {
     directionChosen
+  }
+
+  def pickUp(): Unit = {
+
   }
 
 }
