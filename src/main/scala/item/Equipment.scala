@@ -1,8 +1,8 @@
 package item
 
 class Equipment(s:String, des:String, para:Int) extends Item(s:String, des: String){
-  private val name = s
-  private val description = des
+  override val name = s
+  val description = des
   private val parameter = para
   override def canEquip = true
   def getParameter()=parameter
