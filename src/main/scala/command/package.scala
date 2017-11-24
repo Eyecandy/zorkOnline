@@ -2,7 +2,7 @@ import java.io.{FileNotFoundException, IOException}
 
 import builders.LevelBuilder.{east, west}
 import builders.RoomBuilder
-import item.{Equipment, Item}
+import item.{Equipment, Item, Key}
 import memorycard.{ResourceManager, SaveData}
 import startgame.GameRunner
 import organism._
@@ -30,6 +30,7 @@ package object Commands {
   commandMap.put("equip",equip)
   commandMap.put("throw",throwItem)
   commandMap.put("stats",getPlayerStats)
+  commandMap.put("unlock",unlock)
 
   def throwItem(input:String): String = {
     val itemToThrow: ItemCount = player.getInventory.getOrElse(input,null)
@@ -95,8 +96,6 @@ package object Commands {
     }
 
   }
-
-
 
 
   def checkInventory(inputNotUsed:String) = {
@@ -174,5 +173,43 @@ package object Commands {
       }
     }
     "loaded" + "<br>" + getRoomAndStory("Whatever string")
+  }
+
+  def unlock(key_link:String): String = {
+    println(key_link)
+    val key_linkA = key_link.split("-")
+
+    val link = key_linkA.head
+
+    val key = key_linkA.tail.head
+    val itemKey: ItemCount = player.getInventory.getOrElse(key,null)
+    itemKey match {
+      case null => "You have no such item"
+      case _ =>  {
+        if (itemKey.item.isInstanceOf[Key]) {
+          linkUnlockingAttempt(link,itemKey.item.asInstanceOf[Key])
+        }
+        else {
+          "That is not a key"
+        }
+      }
+    }
+  }
+
+  def linkUnlockingAttempt(link:String,key:Key): String = {
+    val realLink = player.getDirection().itemMap.getOrElse(link,null)
+     realLink match{
+      case null =>  "no such link"
+      case _ => {
+        if (realLink.isInstanceOf[Link]) {
+          key.useKey(realLink.asInstanceOf[Link])
+        }
+        else {
+          "That is not an link object your are attempting to unlock.."
+        }
+
+      }
+    }
+
   }
 }

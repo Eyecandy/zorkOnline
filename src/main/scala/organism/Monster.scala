@@ -8,4 +8,8 @@ class Monster(name: String) {
   private var defence = 10
   //private val itemDrop = String // Item
 
+
+
+
+
 }
