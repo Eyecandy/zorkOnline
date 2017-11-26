@@ -108,7 +108,7 @@ package object Commands {
       "You picked up " + item.name
     }
     else {
-      "None"
+      "Either the entity requested can't be picked up or it could be that it does not exist"
     }
 
   }
@@ -150,8 +150,13 @@ package object Commands {
   }
 
   def lookAround(input: String): String = {
+    val roomDirs = player.getRoom.getLocations
+    val dirsString = roomDirs.foldLeft("")((acc,elt) => acc +  "<br>"+ elt._1 +": " +elt._2.getStory + elt._2.itemMap.
+      foldLeft("")((acc,elt) => acc + "<br>" +elt._2.name + ": "+elt._2.story))
+
     val dir  = player.getDirection()
-    dir.getName + ": " + dir.getStory
+
+    dirsString
   }
 
   def saveCmd(fileName: String): String = {
