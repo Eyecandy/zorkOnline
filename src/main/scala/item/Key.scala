@@ -8,8 +8,6 @@ class Key(s:String, des:String,link:Link,unlockString:String) extends Item(s:Str
       link.locked = false
       link.story = unlockString
       link.name + " successfully unlocked"
-
-
     }
     else {
       "can't open that object"

@@ -41,8 +41,6 @@ object MyParser {
         cmdFunc(arg)
       }
       case 4 =>  {
-        println(treatedInput)
-
         exctractArg(treatedInput,cmdFunc)
       }
       case _ => "Invalid command"

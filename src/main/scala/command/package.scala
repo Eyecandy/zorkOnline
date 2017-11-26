@@ -31,6 +31,22 @@ package object Commands {
   commandMap.put("throw",throwItem)
   commandMap.put("stats",getPlayerStats)
   commandMap.put("unlock",unlock)
+  commandMap.put("attack",attack)
+  commandMap.put("use",use)
+
+  def use(input:String):String = {
+    val itemCount = player.getInventory.getOrElse(input,null)
+    itemCount match  {
+      case null => "no such item in inventory"
+      case _ => {
+        player.use(itemCount.item)
+      }
+    }
+  }
+
+  def attack(monsterName:String): String = {
+    player.attack(monsterName)
+  }
 
   def throwItem(input:String): String = {
     val itemToThrow: ItemCount = player.getInventory.getOrElse(input,null)
@@ -89,7 +105,7 @@ package object Commands {
         }
       }
       player.getDirection().itemMap.remove(item.name)
-      "You picked up" + item.name
+      "You picked up " + item.name
     }
     else {
       "None"
@@ -119,7 +135,7 @@ package object Commands {
     val dirName = player.getDirection().getName
     val dirStory = player.getDirection().getStory
     val allFOatDir = player.getDirection().itemMap.valuesIterator
-    val items = allFOatDir.foldLeft("")((acc, item) => acc + "<br>" + item.name + ": " + item.story + "<br>")
+    val items = allFOatDir.foldLeft("")((acc, item) => acc + "<br>" + item.name + ": " + item.story )
     items.isEmpty match {
       case true => "direction: " + dirName + ": " + dirStory
       case false => "direction: " + dirName + ": " + dirStory + items
@@ -176,7 +192,6 @@ package object Commands {
   }
 
   def unlock(key_link:String): String = {
-    println(key_link)
     val key_linkA = key_link.split("-")
 
     val link = key_linkA.head
@@ -207,9 +222,7 @@ package object Commands {
         else {
           "That is not an link object your are attempting to unlock.."
         }
-
       }
     }
-
   }
 }

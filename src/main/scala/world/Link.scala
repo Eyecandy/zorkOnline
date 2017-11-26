@@ -13,8 +13,6 @@ class Link(lockedC:Boolean,room1C:Room,room2C:Room,nameC:String,storyC:String) e
 
   val lockedText = "door appears to be opoen"
 
-
-
   def teleport(player:Player, currentRoom: Room): String = {
     locked match {
       case true => "That door is locked"

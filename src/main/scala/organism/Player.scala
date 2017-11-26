@@ -8,13 +8,14 @@ import builders.RoomBuilder
 case class ItemCount(item: Item, count: Int) extends Serializable
 @SerialVersionUID(114L)
 case class Spell(name:String,dmg:Int,manaCost:Int) extends Serializable
+
 class Player extends Serializable {
 
   var maxHP = 100
   var maxMP = 50
-  var hp = 100
+  var hp = 98
   var mp = 50
-  var attack = 50
+  var attack = 90
   var defence = 10
   var weaponSlot:Option[Weapon] = None
   var armorSlot:Option[Armor] = None
@@ -23,7 +24,6 @@ class Player extends Serializable {
 
   private var room: Room = RoomBuilder.allRooms(0)
   var directionChosen:Direction = room.getLocations("n")
-
 
 
   def equip[T <: Equipment](e: T): Unit = {
@@ -70,6 +70,27 @@ class Player extends Serializable {
 //    }
 //  }
 
+
+  def attack(monsterName:String):String = {
+    val fob = getDirection().itemMap.getOrElse(monsterName,null)
+    fob match {
+      case null => "No such thing to attack here"
+      case _ => {
+        if (fob.isInstanceOf[Monster]) {
+          val monster:Monster =  fob.asInstanceOf[Monster]
+          if (monster.hp < 0) {monster.name + " is already dead"}
+          else {
+            monster.hp = monster.hp + (monster.defence - attack)
+            monster.name + " attacked for " + math.abs(( - attack + defence) )+ " damage <br>" + monster.dead()
+          }
+        }
+        else {
+          "that is not a monster"
+        }
+      }
+    }
+  }
+
   def recover(r: Recovery)= {
     val recoverAmount = r.parameter
     r match {
@@ -85,14 +106,29 @@ class Player extends Serializable {
 
   def use(it: Item)=it match { // assuming item exist in inventory
     case e: Equipment => {
-      inventory.remove(e.getName)
-      equip(e)
+      val itemCount = inventory.getOrElse(e.getName,null)
+      if (itemCount == null) {
+        "No such item in your inventory"
+      }
+      else {
+        inventory.remove(e.getName)
+        val equi = equip(e)
+        "you equipped " + e.name
+      }
     }
     case r: Recovery => {
-      val itemQuantity = inventory(r.getName).count
-      if (itemQuantity == 1) inventory.remove(r.getName)
-      else inventory.update(r.getName, ItemCount(r, itemQuantity-1))
-      recover(r)
+      val itemCount = inventory.getOrElse(r.getName,null)
+      if (itemCount == null) {"No such item in your inventory"}
+      else {
+        val itemQuantity = itemCount.count
+        if (itemQuantity == 1) inventory.remove(r.getName)
+        else inventory.update(r.getName, ItemCount(r, itemQuantity-1))
+        val hpRecString =  math.min(maxHP - hp,r.parameter)
+        val recAmount = recover(r)
+
+        "<br> You recovered for " + hpRecString + "hp"
+      }
+
     }
   }
 
@@ -109,6 +145,7 @@ class Player extends Serializable {
   def getDirection(): Direction = {
     directionChosen
   }
+
 
 
 

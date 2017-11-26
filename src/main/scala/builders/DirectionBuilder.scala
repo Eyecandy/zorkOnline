@@ -1,6 +1,7 @@
 package builders
 
-import item.Weapon
+import item.{Potion, Weapon}
+import organism.Monster
 import world.{Direction, FatherOfObjects, Link}
 
 import scala.collection.mutable
@@ -14,13 +15,16 @@ object DirectionBuilder {
 
   def r1Dir = {
     val r1ls = new Direction(south,"a wind strong wind is coming from above");
-    val r1le = new Direction(east,"you are near the torch");
-    val r1lw = new Direction(west,"staircases lead up in a spiral");
-    val r1ln = new Direction(north,"a barricaded door is in front of you");
+    val r1le = new Direction(east,"A fire place is here lightning up the room");
+    val r1lw = new Direction(west,"dark wall ");
+    val r1ln = new Direction(north,"white wall with a nice painting on it");
     val r1Dir= new mutable.HashMap[String,Direction]()
     val sword = new Weapon("sword","it'is shiny",10);
-    r1ln.itemMap.put(sword.getName,sword);
-
+    val wolfy = new Monster("wolfy","roaring,black fur fangs and stuff");
+    val hpPot = new Potion("hp_pot", "it's in an old vial",30)
+    r1ls.itemMap.put(wolfy.name,wolfy)
+    r1ln.itemMap.put(sword.getName,sword)
+    r1ln.itemMap.put(hpPot.name, hpPot)
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
     r1Dir
   }

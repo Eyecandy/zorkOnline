@@ -37,7 +37,7 @@ function moveDir(dir){
             'input' : dir
         },
         success: function(data){
-            myString +="<br>" + dir + "<br>" + data
+            myString +="<br> >" + dir + "<br>" + data
             console.log("SUCCESS")
             console.log(data)
 
