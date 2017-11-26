@@ -40,7 +40,20 @@ object MyParser {
         val arg = treatedInput.tail.head
         cmdFunc(arg)
       }
-      case _ => "input is too long"
+      case 4 =>  {
+        exctractArg(treatedInput,cmdFunc)
+      }
+      case _ => "Invalid command"
     }
+  }
+
+  private def exctractArg(arg:Array[String],cmdFunc: String => String): String = {
+    if (arg.tail.tail.head.equals("with")) {
+      cmdFunc(arg.tail.head + "-" + arg.tail.tail.tail.head)
+    }
+    else {
+      "Invalid command"
+    }
+
   }
 }

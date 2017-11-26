@@ -1,6 +1,7 @@
 package builders
 
 import builders.RoomBuilder.{allRooms, secondRoom, startingRoom}
+import item.Key
 import world.Link
 
 object LevelBuilder {
@@ -14,8 +15,10 @@ object LevelBuilder {
 
     val room0 = allRooms.get(0).get
     val room1 = allRooms.get(1).get
-    val link0= new Link(false,room0,room1,"old_door",
-      "it appears to be open")
+    val link0= new Link(true,room0,room1,"old_door",
+      "it appears to be locked")
+    val key:Key = new Key("brass_key","it's rusty",link0,"it's open")
+    room0.getLocations(south).itemMap.put(key.name,key)
     room0.getLocations.get(east).get.itemMap.put(link0.name,link0)
     room1.getLocations.get(west).get.itemMap.put(link0.name,link0)
 
