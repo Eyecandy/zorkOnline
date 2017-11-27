@@ -13,20 +13,21 @@ case class Spell(name:String,dmg:Int,manaCost:Int) extends Serializable
 class Player extends Serializable {
 
 
-  private var playerLevel = 1
-  private var exp = 0
+  var playerLevel = 1
+  var exp = 0
   var maxHP = 100
   var maxMP = 50
-  var hp = 98
+  var hp = 100
   var mp = 50
-  var attack = 90
+  var attack = 35
   var defence = 10
   var weaponSlot:Option[Weapon] = None
   var armorSlot:Option[Armor] = None
 
   private val inventory = new mutable.HashMap[String, ItemCount]()
   val spells = new mutable.HashMap[String, Spell]()
-
+  spells.put("fireball", new Spell("fireball",45,30))
+  spells.put("ice_lance",new Spell("fireball",45,30))
   private var room: Room = RoomBuilder.allRooms(0)
   var directionChosen:Direction = room.getLocations("n")
 
@@ -47,7 +48,6 @@ class Player extends Serializable {
                                 updateSlot: T  => Unit,
                                 updateParameter: Int => Unit): Unit = {
       updateParameter(e.parameter)
-
       if (slot.isDefined) {
         val old: T = slot.get
         inventory.put(old.getName, ItemCount(old, 1))
@@ -56,27 +56,66 @@ class Player extends Serializable {
     }
   }
 
-
-  def unequip[T <: Equipment](slot: Option[T])={
+  def unequip[T <: Equipment](slot: Option[T]): String={
     if (!slot.isEmpty) {
       val old: T = slot.get
       inventory.put(old.getName, ItemCount(old, 1))
+      "You unequipped"
     }
-    else {} // print("error!! no equipment equipped in slot.")
+    else {"You have nothing equipped"} // print("error!! no equipment equipped in slot.")
   }
 
    // exp gained from each monster will be Int in range(10, 20) or (20, 40) depending on monster strength
-  def levelUp(newLevel: Int):Unit={
-//    val newLevel = (exp/20)+1
-    if (newLevel > playerLevel){
+  def levelUp():Boolean={
+    val newLevel = (exp/20)+1
+    val isLevelUp = (newLevel > playerLevel)
+    while (newLevel > playerLevel){
       playerLevel+=1
       maxHP+=RandomNumberGenerator.RNG(10, 20)
       maxMP+=RandomNumberGenerator.RNG(10, 15)
       attack+=RandomNumberGenerator.RNG(2, 7)
       defence+=RandomNumberGenerator.RNG(2, 7)
-      levelUp(newLevel)
+    }
+    isLevelUp
+  }
+
+  def castSpell(spell_monster:String): String = {
+    val lstSpMo = spell_monster.split("-")
+    val spellS = lstSpMo.head
+    val monsterS = lstSpMo.tail.head
+    if (spells.getOrElse(spellS,null) == null || getDirection().itemMap.getOrElse(monsterS,null) == null ) {
+      "Either you don't have that spell or that creature doesn't exist"
+    }
+    else {
+
+      val spellToCast:Spell = spells(spellS)
+      if (mp < spellToCast.manaCost) {
+        "Not enough mana"
+      }
+      else {
+
+        val isMonster = getDirection().itemMap(monsterS).isInstanceOf[Monster]
+        isMonster match {
+          case false => "That's not a monster"
+          case true => {
+
+            val monster = getDirection().itemMap(monsterS).asInstanceOf[Monster]
+            if (monster.hp < 0) {monster.name + " is already dead"}
+            else {
+              mp = mp - spellToCast.manaCost
+              monster.hp = monster.hp - spellToCast.dmg
+              monster.name + " takes " + spellToCast.dmg+ " spell damage <br>" + monster.dead()
+            }
+
+          }
+        }
+      }
+
+
     }
   }
+
+
 
 
 

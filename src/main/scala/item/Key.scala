@@ -7,10 +7,10 @@ class Key(s:String, des:String,link:Link,unlockString:String) extends Item(s:Str
     if (link.equals(canOpen) ) {
       link.locked = false
       link.story = unlockString
-      link.name + " successfully unlocked"
+      link.name + command.CommandStrings.succesfullyUnlocked
     }
     else {
-      "can't open that object"
+      command.CommandStrings.cantOpenThatObject
     }
   }
 

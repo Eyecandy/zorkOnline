@@ -15,11 +15,13 @@ object DirectionBuilder {
     val r1ln = new Direction(DirStrings.northS,"white wall with a nice painting on it");
     val r1Dir= new mutable.HashMap[String,Direction]()
     val sword = new Weapon("sword","it'is shiny",10);
-    val wolfy = new Monster("wolfy","roaring,black fur fangs and stuff");
+    val wolfy = new Monster("wolfy","roaring,black fur fangs and stuff",true);
+    val wolfy2 = new Monster("w","roaring,black fur fangs and stuff",true);
     val hpPot = new Potion("hp_pot", "it's in an old vial",30)
     r1ls.itemMap.put(wolfy.name,wolfy)
     r1ln.itemMap.put(sword.getName,sword)
     r1ln.itemMap.put(hpPot.name, hpPot)
+    r1ln.itemMap.put(wolfy2.name,wolfy2)
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
     r1Dir
   }

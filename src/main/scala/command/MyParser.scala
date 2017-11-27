@@ -22,8 +22,9 @@ object MyParser {
     val treatedInput = input.toLowerCase().trim().split(" ")
 
     val commandFunc: Option[String => String] = Commands.commandMap.get(treatedInput.head)
+
     commandFunc match {
-      case None => "Invalid Command"
+      case None => CommandStrings.invalidCommand
       case _ => {
         val successMessage: String = helper(treatedInput, commandFunc.get)
         successMessage
@@ -43,17 +44,16 @@ object MyParser {
       case 4 =>  {
         exctractArg(treatedInput,cmdFunc)
       }
-      case _ => "Invalid command"
+      case _ => CommandStrings.invalidCommand
     }
   }
 
   private def exctractArg(arg:Array[String],cmdFunc: String => String): String = {
-    if (arg.tail.tail.head.equals("with")) {
+    if (arg.tail.tail.head.equals("with") || arg.tail.tail.head.equals("on")) {
       cmdFunc(arg.tail.head + "-" + arg.tail.tail.tail.head)
     }
     else {
-      "Invalid command"
+      CommandStrings.invalidCommand
     }
-
   }
 }

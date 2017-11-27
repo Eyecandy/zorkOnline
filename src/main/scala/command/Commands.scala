@@ -27,7 +27,7 @@ object Commands {
   commandMap.put("save", saveCmd)
   commandMap.put("load", loadCmd)
   commandMap.put("open", useLink)
-  commandMap.put("pick",pickup)
+  commandMap.put("take",pickup)
   commandMap.put("inventory",checkInventory)
   commandMap.put("equip",equip)
   commandMap.put("throw",throwItem)
@@ -35,11 +35,17 @@ object Commands {
   commandMap.put("unlock",unlock)
   commandMap.put("attack",attack)
   commandMap.put("use",use)
+  commandMap.put("cast",castSpell)
+
+
+  def castSpell(spell_monster:String): String= {
+    player.castSpell(spell_monster)
+  }
 
   def use(input:String):String = {
     val itemCount = player.getInventory.getOrElse(input,null)
     itemCount match  {
-      case null => "No such item in inventory"
+      case null => CommandStrings.noSuchItemInventory
       case _ => {
         player.use(itemCount.item)
       }
@@ -53,7 +59,7 @@ object Commands {
   def throwItem(input:String): String = {
     val itemToThrow: ItemCount = player.getInventory.getOrElse(input,null)
     itemToThrow match {
-      case null => "No such item in inventory"
+      case null => CommandStrings.noSuchItemInventory
       case _ => {
         val currDirItemMap = player.getDirection().itemMap
         val item = itemToThrow.item
@@ -83,7 +89,7 @@ object Commands {
     val itemCount= player.getInventory.getOrElse(input,null)
 
     itemCount match{
-      case null => "No such item in inventory"
+      case null => CommandStrings.noSuchItemInventory
       case _ => {
         player.use(itemCount.item)
         "equipped " + itemCount.item.name
@@ -117,7 +123,7 @@ object Commands {
 
   def checkInventory(inputNotUsed:String) = {
     player.getInventory.isEmpty match {
-      case true => "Your invetory is empty"
+      case true => CommandStrings.emptyInventory
       case false => player.getInventory.valuesIterator.foldLeft("")( (acc,item) => acc + item.item.name +" quantity: "+ item.count + "<br>")
     }
   }
@@ -126,7 +132,7 @@ object Commands {
     val k = player.getDirection().itemMap
     val output: FatherOfObjects = player.getDirection().itemMap.getOrElse(input, null)
     output match {
-      case null => "No such thing can opened"
+      case null => CommandStrings.cantOpenThatObject
       case _  => output.asInstanceOf[Link].teleport(player, player.getRoom)
     }
   }
@@ -203,13 +209,13 @@ object Commands {
     val key = key_linkA.tail.head
     val itemKey: ItemCount = player.getInventory.getOrElse(key,null)
     itemKey match {
-      case null => "You have no such item"
+      case null => CommandStrings.noSuchItemInventory
       case _ =>  {
         if (itemKey.item.isInstanceOf[Key]) {
           linkUnlockingAttempt(link,itemKey.item.asInstanceOf[Key])
         }
         else {
-          "That is not a key"
+          CommandStrings.notValidKey
         }
       }
     }
@@ -218,13 +224,13 @@ object Commands {
   def linkUnlockingAttempt(link:String,key:Key): String = {
     val realLink = player.getDirection().itemMap.getOrElse(link,null)
     realLink match{
-      case null =>  "no such link"
+      case null =>  CommandStrings.notValidLink
       case _ => {
         if (realLink.isInstanceOf[Link]) {
           key.useKey(realLink.asInstanceOf[Link])
         }
         else {
-          "That is not an link object your are attempting to unlock.."
+          CommandStrings.notAlinkUnlock
         }
       }
     }
