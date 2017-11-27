@@ -8,7 +8,7 @@ class Monster(nameC: String,storyC:String) extends  FatherOfObjects{
   var mp = 50
   var attack = 15
   var defence = 10
-  private val itemDrop = String // Item
+  //private val itemDrop = String // Item
   override val name = nameC
   override var story = storyC
   override val pickable = false
