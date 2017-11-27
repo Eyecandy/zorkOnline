@@ -2,6 +2,7 @@ package organism
 
 import world.{Direction, Room}
 import item._
+import random._
 import scala.collection.mutable
 import builders.RoomBuilder
 @SerialVersionUID(114L)
@@ -11,6 +12,9 @@ case class Spell(name:String,dmg:Int,manaCost:Int) extends Serializable
 
 class Player extends Serializable {
 
+
+  private var playerLevel = 1
+  private var exp = 0
   var maxHP = 100
   var maxMP = 50
   var hp = 98
@@ -19,6 +23,7 @@ class Player extends Serializable {
   var defence = 10
   var weaponSlot:Option[Weapon] = None
   var armorSlot:Option[Armor] = None
+
   private val inventory = new mutable.HashMap[String, ItemCount]()
   val spells = new mutable.HashMap[String, Spell]()
 
@@ -50,6 +55,30 @@ class Player extends Serializable {
       updateSlot(e.asInstanceOf[T])
     }
   }
+
+
+  def unequip[T <: Equipment](slot: Option[T])={
+    if (!slot.isEmpty) {
+      val old: T = slot.get
+      inventory.put(old.getName, ItemCount(old, 1))
+    }
+    else {} // print("error!! no equipment equipped in slot.")
+  }
+
+   // exp gained from each monster will be Int in range(10, 20) or (20, 40) depending on monster strength
+  def levelUp(newLevel: Int):Unit={
+//    val newLevel = (exp/20)+1
+    if (newLevel > playerLevel){
+      playerLevel+=1
+      maxHP+=RandomNumberGenerator.RNG(10, 20)
+      maxMP+=RandomNumberGenerator.RNG(10, 15)
+      attack+=RandomNumberGenerator.RNG(2, 7)
+      defence+=RandomNumberGenerator.RNG(2, 7)
+      levelUp(newLevel)
+    }
+  }
+
+
 
 //    e match {
 //    case w: Weapon => {
