@@ -1,8 +1,10 @@
+package command
+
 import java.io.{FileNotFoundException, IOException}
 
 import builders.LevelBuilder.{east, west}
 import builders.RoomBuilder
-import item.{Equipment, Item}
+import item.{Equipment, Item, Key}
 import memorycard.{ResourceManager, SaveData}
 import startgame.GameRunner
 import organism._
@@ -12,7 +14,7 @@ import scala.collection.mutable
 import scala.util.Random
 
 
-package object Commands {
+object Commands {
 
   var player = GameRunner.player
   val commandMap = mutable.HashMap[String, String => String]()
@@ -28,7 +30,53 @@ package object Commands {
   commandMap.put("pick",pickup)
   commandMap.put("inventory",checkInventory)
   commandMap.put("equip",equip)
+  commandMap.put("throw",throwItem)
+  commandMap.put("stats",getPlayerStats)
+  commandMap.put("unlock",unlock)
+  commandMap.put("attack",attack)
+  commandMap.put("use",use)
 
+  def use(input:String):String = {
+    val itemCount = player.getInventory.getOrElse(input,null)
+    itemCount match  {
+      case null => "No such item in inventory"
+      case _ => {
+        player.use(itemCount.item)
+      }
+    }
+  }
+
+  def attack(monsterName:String): String = {
+    player.attack(monsterName)
+  }
+
+  def throwItem(input:String): String = {
+    val itemToThrow: ItemCount = player.getInventory.getOrElse(input,null)
+    itemToThrow match {
+      case null => "No such item in inventory"
+      case _ => {
+        val currDirItemMap = player.getDirection().itemMap
+        val item = itemToThrow.item
+        currDirItemMap.put(item.name,item)
+        player.getInventory.remove(item.name)
+        "threw away " + item.name
+      }
+    }
+  }
+
+  def getPlayerStats(input:String): String = {
+
+    var stats = "Dmg: " + player.attack + " max hp: " + player.maxHP + " max mana: " + player.maxMP + " curr hp: " +
+      player.hp + " curr Mana: " + player.mp  + " def: " + player.defence
+
+    if (player.armorSlot.isDefined) {
+      stats += " armor equipped " + player.armorSlot.get.name
+    }
+    if (player.weaponSlot.isDefined) {
+      stats += " weapon equipped " + player.weaponSlot.get.name
+    }
+    stats
+  }
 
 
   def equip(input: String): String = {
@@ -42,7 +90,6 @@ package object Commands {
       }
     }
   }
-
 
   def pickup(input:String):String = {
     val fatherOB: FatherOfObjects = player.getDirection().itemMap.getOrElse(input, null)
@@ -59,15 +106,13 @@ package object Commands {
         }
       }
       player.getDirection().itemMap.remove(item.name)
-      "You picked up" + item.name
+      "You picked up " + item.name
     }
     else {
-      "None"
+      "Either the entity requested can't be picked up or it could be that it does not exist"
     }
 
   }
-
-
 
 
   def checkInventory(inputNotUsed:String) = {
@@ -91,7 +136,7 @@ package object Commands {
     val dirName = player.getDirection().getName
     val dirStory = player.getDirection().getStory
     val allFOatDir = player.getDirection().itemMap.valuesIterator
-    val items = allFOatDir.foldLeft("")((acc, item) => acc + "<br>" + item.name + ": " + item.story + "<br>")
+    val items = allFOatDir.foldLeft("")((acc, item) => acc + "<br>" + item.name + ": " + item.story )
     items.isEmpty match {
       case true => "direction: " + dirName + ": " + dirStory
       case false => "direction: " + dirName + ": " + dirStory + items
@@ -106,8 +151,13 @@ package object Commands {
   }
 
   def lookAround(input: String): String = {
+    val roomDirs = player.getRoom.getLocations
+    val dirsString = roomDirs.foldLeft("")((acc,elt) => acc +  "<br>"+ elt._1 +": " +elt._2.getStory + elt._2.itemMap.
+      foldLeft("")((acc,elt) => acc + "<br>" +elt._2.name + ": "+elt._2.story))
+
     val dir  = player.getDirection()
-    dir.getName + ": " + dir.getStory
+
+    dirsString
   }
 
   def saveCmd(fileName: String): String = {
@@ -145,5 +195,38 @@ package object Commands {
       }
     }
     "loaded" + "<br>" + getRoomAndStory("Whatever string")
+  }
+
+  def unlock(key_link:String): String = {
+    val key_linkA = key_link.split("-")
+    val link = key_linkA.head
+    val key = key_linkA.tail.head
+    val itemKey: ItemCount = player.getInventory.getOrElse(key,null)
+    itemKey match {
+      case null => "You have no such item"
+      case _ =>  {
+        if (itemKey.item.isInstanceOf[Key]) {
+          linkUnlockingAttempt(link,itemKey.item.asInstanceOf[Key])
+        }
+        else {
+          "That is not a key"
+        }
+      }
+    }
+  }
+
+  def linkUnlockingAttempt(link:String,key:Key): String = {
+    val realLink = player.getDirection().itemMap.getOrElse(link,null)
+    realLink match{
+      case null =>  "no such link"
+      case _ => {
+        if (realLink.isInstanceOf[Link]) {
+          key.useKey(realLink.asInstanceOf[Link])
+        }
+        else {
+          "That is not an link object your are attempting to unlock.."
+        }
+      }
+    }
   }
 }

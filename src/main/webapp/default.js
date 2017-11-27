@@ -18,8 +18,9 @@ function clickMe(){
             'input' : x
         },
         success: function(data){
-            myString +="<br>" + x + "<br>" + data
-            console.log("SUCCESS")
+            myString +="<br>"  +"> "+x + "<br>" + data
+
+            console.log("SUCCESS click me!")
             console.log(data)
             document.getElementById("scrll").innerHTML = myString
         },
@@ -37,8 +38,8 @@ function moveDir(dir){
             'input' : dir
         },
         success: function(data){
-            myString +="<br>" + dir + "<br>" + data
-            console.log("SUCCESS")
+            myString +="<br>" + "> " +dir + "<br>" + data
+            console.log("SUCCESS move dir")
             console.log(data)
 
             document.getElementById("scrll").innerHTML = myString
@@ -47,9 +48,6 @@ function moveDir(dir){
             alert("Error");
         }
     })
-
-
-
 }
 
 
