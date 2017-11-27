@@ -60,7 +60,8 @@ class Player extends Serializable {
     if (!slot.isEmpty) {
       val old: T = slot.get
       inventory.put(old.getName, ItemCount(old, 1))
-      "You unequipped"
+
+      "You unequipped" + old.getName
     }
     else {"You have nothing equipped"} // print("error!! no equipment equipped in slot.")
   }
@@ -196,10 +197,8 @@ class Player extends Serializable {
 
         "<br> You recovered for " + hpRecString + "hp"
       }
-
     }
   }
-
 
   def getRoom: Room = room
 
@@ -213,8 +212,4 @@ class Player extends Serializable {
   def getDirection(): Direction = {
     directionChosen
   }
-
-
-
-
 }

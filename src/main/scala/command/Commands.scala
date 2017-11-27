@@ -36,7 +36,26 @@ object Commands {
   commandMap.put("attack",attack)
   commandMap.put("use",use)
   commandMap.put("cast",castSpell)
+  commandMap.put("unequip",unequip)
 
+  def unequip(slot:String):String = {
+    if (slot.equals("weapon")) {
+
+      val res = player.unequip(player.weaponSlot)
+      player.weaponSlot = None
+      res
+
+    }
+    else if (slot.equals("armor")) {
+
+     val res = player.unequip(player.weaponSlot)
+      player.armorSlot = None
+      res
+    }
+    else {
+      CommandStrings.noSuchSlot
+    }
+  }
 
   def castSpell(spell_monster:String): String= {
     player.castSpell(spell_monster)

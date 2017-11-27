@@ -13,5 +13,6 @@ object CommandStrings {
   val cantOpenThatObject = "can't open that object"
   val lockedDoor = "That door is locked"
   val noSuchThingToAttack = "No such thing to attack here"
+  val noSuchSlot = "No such slot"
 
 }

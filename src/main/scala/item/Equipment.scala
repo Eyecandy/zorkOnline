@@ -6,8 +6,6 @@ class Equipment(s:String, des:String, para:Int) extends Item(s:String, des: Stri
   val parameter = para
   val canEquip = true
 
-
-
   override def isEquip: Boolean = true
 }
 

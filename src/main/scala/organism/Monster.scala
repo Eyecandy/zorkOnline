@@ -3,6 +3,7 @@ package organism
 import world.FatherOfObjects
 import command.Commands._
 import random.RandomNumberGenerator._
+import startgame.GameRunner
 
 class Monster(nameC: String,storyC:String, isStrong: Boolean) extends  FatherOfObjects{
   val stats = monsterStatsMap(isStrong)
@@ -18,7 +19,7 @@ class Monster(nameC: String,storyC:String, isStrong: Boolean) extends  FatherOfO
 
   override def isEquip = false
 
-  def dead() = {
+  def dead():String = {
     if (hp < 0) {
       player.exp+=exp
       val isLevelUp = player.levelUp()
@@ -33,13 +34,21 @@ class Monster(nameC: String,storyC:String, isStrong: Boolean) extends  FatherOfO
         "<br>"+name + " died..."
       }
 
-
-
     }
     else {
-
       player.hp = player.hp + (player.defence - attack)
-      name + " retaliates for " + (attack - player.defence) + " damage"  +"("+ player.defence+" blocked)"
+      val res =name + " retaliates for " + (attack - player.defence) + " damage"  +"("+ player.defence+" blocked)"
+      if (player.hp < 0) {
+        hp =  RNG(stats.hp._1, stats.hp._2)
+        attack = RNG(stats.atk._1, stats.atk._2)
+        player.hp = player.maxHP
+        val finalRes = res+ "<br> you died, you are set back to full hp and so is  "+ name
+        finalRes
+      }
+      else {
+        res
+      }
+
     }
 
   }

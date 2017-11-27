@@ -6,6 +6,7 @@ import command.MyParser
 import organism.Player
 
 object GameRunner {
+
   LevelBuilder.createWorld()
   val player = new Player()
 
