@@ -1,6 +1,7 @@
 package application
 
 import builders.{LevelBuilder, RoomBuilder}
+import command.Commands
 import item.{Potion, Weapon}
 import organism.{ItemCount, Player}
 import organism.Monster
