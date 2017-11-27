@@ -18,6 +18,9 @@ object LinkTest extends  App {
   val key:Key = new Key("brass_key","it's rusty",linkATloc,"it's open")
   player.getInventory.put(key.name,new ItemCount(key,1))
   assert(command.Commands.unlock("old_door-brass_key").equals("old_door successfully unlocked"))
+  player.setDirection("w")
+  val link  = player.getDirection().itemMap("latch").asInstanceOf[Link]
+  println(link.teleport(player,player.getRoom))
 
 
 

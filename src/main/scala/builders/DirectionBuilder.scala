@@ -7,13 +7,6 @@ import world.{Direction, FatherOfObjects, Link}
 import scala.collection.mutable
 
 object DirectionBuilder {
-  private val south= "South"
-  private val north= "North"
-  private val east = "East"
-  private val west = "West"
-
-
-
 
   def r1Dir = {
     val r1ls = new Direction(DirStrings.southS,"a wind strong wind is coming from above");
