@@ -1,4 +1,5 @@
 package item
+
 import world._
 abstract class Item(s:String, des: String) extends FatherOfObjects {
   override val name: String = s
@@ -6,9 +7,8 @@ abstract class Item(s:String, des: String) extends FatherOfObjects {
   override val pickable: Boolean = true
 
   override def isEquip = false
-
-
 }
+
 //trait equipment{
 //  def equip(playerPara: Int):Int =0
 //}
