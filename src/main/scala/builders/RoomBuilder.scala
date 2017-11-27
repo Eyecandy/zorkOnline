@@ -24,4 +24,13 @@ object RoomBuilder {
     allRooms.put(1,room2)
     room2
   }
+
+  def thirdRoom():Room = {
+    val r1Dir= DirectionBuilder.r3Dir
+    val room3 = new Room("Sewers: Low",
+      "It's smelly down here....",
+      r1Dir)
+    allRooms.put(2,room3)
+    room3
+  }
 }

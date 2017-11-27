@@ -1,7 +1,7 @@
 package organism
 
 import world.FatherOfObjects
-import Commands.player
+import command.Commands._
 
 class Monster(nameC: String,storyC:String) extends  FatherOfObjects{
  // private val monsterName = name

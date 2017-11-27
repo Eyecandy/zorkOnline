@@ -1,3 +1,5 @@
+package command
+
 import java.io.{FileNotFoundException, IOException}
 
 import builders.LevelBuilder.{east, west}
@@ -12,7 +14,7 @@ import scala.collection.mutable
 import scala.util.Random
 
 
-package object Commands {
+object Commands {
 
   var player = GameRunner.player
   val commandMap = mutable.HashMap[String, String => String]()
@@ -37,7 +39,7 @@ package object Commands {
   def use(input:String):String = {
     val itemCount = player.getInventory.getOrElse(input,null)
     itemCount match  {
-      case null => "no such item in inventory"
+      case null => "No such item in inventory"
       case _ => {
         player.use(itemCount.item)
       }
@@ -89,7 +91,6 @@ package object Commands {
     }
   }
 
-
   def pickup(input:String):String = {
     val fatherOB: FatherOfObjects = player.getDirection().itemMap.getOrElse(input, null)
     if (fatherOB != null && fatherOB.pickable) {
@@ -108,7 +109,7 @@ package object Commands {
       "You picked up " + item.name
     }
     else {
-      "None"
+      "Either the entity requested can't be picked up or it could be that it does not exist"
     }
 
   }
@@ -150,8 +151,13 @@ package object Commands {
   }
 
   def lookAround(input: String): String = {
+    val roomDirs = player.getRoom.getLocations
+    val dirsString = roomDirs.foldLeft("")((acc,elt) => acc +  "<br>"+ elt._1 +": " +elt._2.getStory + elt._2.itemMap.
+      foldLeft("")((acc,elt) => acc + "<br>" +elt._2.name + ": "+elt._2.story))
+
     val dir  = player.getDirection()
-    dir.getName + ": " + dir.getStory
+
+    dirsString
   }
 
   def saveCmd(fileName: String): String = {
@@ -193,9 +199,7 @@ package object Commands {
 
   def unlock(key_link:String): String = {
     val key_linkA = key_link.split("-")
-
     val link = key_linkA.head
-
     val key = key_linkA.tail.head
     val itemKey: ItemCount = player.getInventory.getOrElse(key,null)
     itemKey match {
@@ -213,7 +217,7 @@ package object Commands {
 
   def linkUnlockingAttempt(link:String,key:Key): String = {
     val realLink = player.getDirection().itemMap.getOrElse(link,null)
-     realLink match{
+    realLink match{
       case null =>  "no such link"
       case _ => {
         if (realLink.isInstanceOf[Link]) {
