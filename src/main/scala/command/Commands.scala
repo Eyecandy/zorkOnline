@@ -18,7 +18,8 @@ object Commands {
 
   var player = GameRunner.player
   val commandMap = mutable.HashMap[String, String => String]()
-  commandMap.put("s", moveDir)
+  commandMap.put("s" +
+    "", moveDir)
   commandMap.put("n", moveDir)
   commandMap.put("w", moveDir)
   commandMap.put("e", moveDir)
@@ -43,7 +44,6 @@ object Commands {
       val res = player.unequip(player.weaponSlot)
       player.weaponSlot = None
       res
-
     }
     else if (slot.equals("armor")) {
 
@@ -120,7 +120,6 @@ object Commands {
     if (fatherOB != null && fatherOB.pickable) {
       val item = fatherOB.asInstanceOf[Item]
       val inventory = player.getInventory
-
       inventory.contains(item.name) match {
         case false => inventory.put(item.name, ItemCount(item, 1))
         case true => {
@@ -135,7 +134,6 @@ object Commands {
     else {
       "Either the entity requested can't be picked up or it could be that it does not exist"
     }
-
   }
 
 
@@ -174,13 +172,15 @@ object Commands {
     ret
   }
 
+
   def lookAround(input: String): String = {
     val roomDirs = player.getRoom.getLocations
-    val dirsString = roomDirs.foldLeft("")((acc,elt) => acc +  "<br>"+ elt._1 +": " +elt._2.getStory + elt._2.itemMap.
-      foldLeft("")((acc,elt) => acc + "<br>" +elt._2.name + ": "+elt._2.story))
-
+    val dirsString = roomDirs.
+      foldLeft("")((acc,dir) => acc + dir._2.getName +": " +dir._2.getStory +
+          dir._2.itemMap.foldLeft("")((acc,item) => acc + "<br>" +item._2.name + ": "+item._2.story)
+      +"<br><br>")
+    println(dirsString)
     val dir  = player.getDirection()
-
     dirsString
   }
 
@@ -213,7 +213,6 @@ object Commands {
       case ex:FileNotFoundException => {
         println("file not found exception in commands object")
       }
-
       case ex: IOException => {
         println("IO Exception")
       }

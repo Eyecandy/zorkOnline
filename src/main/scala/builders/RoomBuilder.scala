@@ -11,7 +11,6 @@ object RoomBuilder {
     val room1 = new Room("Location: Bottom of tower",
       "darkness covers the room, except for a torch's fire",
       r1Dir)
-
     allRooms.put(0,room1)
     room1
   }

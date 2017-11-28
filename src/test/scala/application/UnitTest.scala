@@ -26,13 +26,13 @@ object UnitTest extends App{
   player.getInventory.put(wep1.name,new ItemCount(wep1,1))
 
   println(player.getInventory)
-//  println(player.attack)
-//  player.equip(wep)
-//  println(player.attack)
+  println(player.attack)
+  player.equip(wep)
+  println(player.attack)
 
-//  player.equip(armor)
+  player.equip(armor)
 
-//  Commands.unequip("armor")
+  Commands.unequip("armor")
 
   Commands.use("pot")
   println(player.getInventory)

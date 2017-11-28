@@ -20,9 +20,7 @@ object MyParser {
 
   def frontEndParsing(input: String) = {
     val treatedInput = input.toLowerCase().trim().split(" ")
-
     val commandFunc: Option[String => String] = Commands.commandMap.get(treatedInput.head)
-
     commandFunc match {
       case None => CommandStrings.invalidCommand
       case _ => {
@@ -34,7 +32,6 @@ object MyParser {
 
   private def helper(treatedInput: Array[String], cmdFunc: String => String): String = {
     val inputLength = treatedInput.length
-
     inputLength match {
       case 1 => cmdFunc(treatedInput.head)
       case 2 => {
