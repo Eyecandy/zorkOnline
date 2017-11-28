@@ -149,8 +149,9 @@ class Player extends Serializable {
           val monster:Monster =  fob.asInstanceOf[Monster]
           if (monster.hp < 0) {monster.name + " is already dead"}
           else {
-            monster.hp = monster.hp + (monster.defence - attack)
-            monster.name + " attacked for " + math.abs(( - attack + defence) )+ " damage <br>" + monster.dead()
+            def dmg = RandomNumberGenerator.RNG(attack -5,attack +5) - monster.defence
+            monster.hp = monster.hp - dmg
+            monster.name + " attacked for " + math.abs((dmg) )+ " damage <br>" + monster.dead()
           }
         }
         else {

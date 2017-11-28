@@ -40,7 +40,6 @@ object Commands {
 
   def unequip(slot:String):String = {
     if (slot.equals("weapon")) {
-
       val res = player.unequip(player.weaponSlot)
       player.weaponSlot = None
       res
@@ -48,7 +47,7 @@ object Commands {
     }
     else if (slot.equals("armor")) {
 
-     val res = player.unequip(player.weaponSlot)
+     val res = player.unequip(player.armorSlot)
       player.armorSlot = None
       res
     }

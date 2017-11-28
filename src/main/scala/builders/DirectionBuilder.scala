@@ -1,6 +1,6 @@
 package builders
 
-import item.{Potion, Weapon}
+import item.{Armor, ManaPotion, Potion, Weapon}
 import organism.Monster
 import world.{Direction, FatherOfObjects, Link}
 
@@ -32,6 +32,9 @@ object DirectionBuilder {
     val r1lw = new Direction(DirStrings.westS,"yellow");
     val r1ln = new Direction(DirStrings.eastS,"orange");
     val hammer = new Weapon("hammer","it's not so shiny",10);
+    val manapotion = new ManaPotion("mp_pot","minor mana potion",25);
+    r1le.itemMap.put(manapotion.name, manapotion)
+
     r1ls.itemMap.put(hammer.getName,hammer)
     val r1Dir= new mutable.HashMap[String,Direction]()
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);
@@ -45,6 +48,8 @@ object DirectionBuilder {
     val r1lw = new Direction(DirStrings.westS,"a good story here..");
     val r1ln = new Direction(DirStrings.eastS,"some other random story");
     val axe = new Weapon("axe","it's sharp and blunt at the same time",20);
+    val armor = new Armor("helmet","an old mail helmet",7);
+    r1ls.itemMap.put(armor.name,armor)
     r1ls.itemMap.put(axe.getName,axe)
     val r1Dir= new mutable.HashMap[String,Direction]()
     r1Dir.put("s",r1ls);r1Dir.put("w",r1lw);r1Dir.put("e",r1le);r1Dir.put("n",r1ln);

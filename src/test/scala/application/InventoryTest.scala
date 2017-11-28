@@ -6,7 +6,7 @@ import item.{Potion, Weapon}
 import organism.{ItemCount, Player}
 import organism.Monster
 
-object ItemTest extends App{
+object InventoryTest extends App{
   LevelBuilder.createWorld()
   val player = Commands.player;
   assert(player.getInventory.size == 0)
@@ -48,6 +48,10 @@ object ItemTest extends App{
 
   player.setDirection("e")
   println(assert(player.attack("wolfy").equals("No such thing to attack here")))
+
+
+
+
 
 
 }

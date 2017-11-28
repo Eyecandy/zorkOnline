@@ -23,6 +23,7 @@ object LevelBuilder {
     linking(room0,room1,link0,DirStrings.east,DirStrings.west)
     room0.getLocations(DirStrings.south).itemMap.put(key.name,key)
 
+
     val room2  = allRooms(2)
     val link1 = new Link(false,room0,room2,"latch",
       "it appears to be open")

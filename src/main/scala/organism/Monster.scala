@@ -33,11 +33,11 @@ class Monster(nameC: String,storyC:String, isStrong: Boolean) extends  FatherOfO
         story = " lying dead on the floor "
         "<br>"+name + " died..."
       }
-
     }
     else {
-      player.hp = player.hp + (player.defence - attack)
-      val res =name + " retaliates for " + (attack - player.defence) + " damage"  +"("+ player.defence+" blocked)"
+      def dmg = RNG(attack-5, attack+5) - player.defence
+      player.hp = player.hp - dmg
+      val res =name + " retaliates for " + (dmg)
       if (player.hp < 0) {
         hp =  RNG(stats.hp._1, stats.hp._2)
         attack = RNG(stats.atk._1, stats.atk._2)
