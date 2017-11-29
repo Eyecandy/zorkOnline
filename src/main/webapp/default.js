@@ -6,7 +6,7 @@ function alertThis() {
     alert("Alert Me!X")
 }
 var myString = ""
-
+var h = 400
 function clickMe(){
     var x =  $("#txt").val()
     console.log("Print: ", x)
@@ -28,6 +28,10 @@ function clickMe(){
             alert("Error");
         }
     })
+
+    $("#scrll").animate({ scrollTop: $(this).height()+h }, "fast");
+    h+=400
+    return false;
 }
 
 function moveDir(dir){
@@ -48,6 +52,10 @@ function moveDir(dir){
             alert("Error");
         }
     })
+
+    $("#scrll").animate({scrollTop: $(this).height() + h }, "fast");
+    h+=400
+    return false;
 }
 
 

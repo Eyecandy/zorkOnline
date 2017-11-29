@@ -1,18 +1,20 @@
 
 @(title: String, headline: String)(body: Html)
-<html>
+<html style="background-color: #fff6cc">
 
   <head>
     <style>
             div.scroll {
               background-color: #C8E2BE;
-              width: 400px;
+              width: 800px;
               height: 400px;
               overflow: scroll;
+              font-size: 24px;
+              font-family: Papyrus;
             }
             div.hidden {
               background-color: #E8E9BE;
-              width: 400px;
+              width: 600px;
               height: 400px;
               overflow: hidden;
             }
@@ -31,7 +33,7 @@
       @*<script src="../../webapp/default.js" type="text/javascript"></script>*@
        @*<button onload="default()">Submit</button>*@
 
-      <div align = "left" id = "scrll" class="scroll" ></div>
+      <div align = "left" id = "scrll" class="scroll"></div>
       <textarea  id="txt" cols="30" rows="10"></textarea>
       <input align = "right" value="submit"id = "txtButton" type="button" name="Submit" onclick="clickMe()">
         <head>

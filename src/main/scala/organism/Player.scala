@@ -19,14 +19,14 @@ class Player extends Serializable {
   var maxMP = 50
   var hp = 100
   var mp = 50
-  var attack = 35
+  var attack = 15
   var defence = 10
   var weaponSlot:Option[Weapon] = None
   var armorSlot:Option[Armor] = None
 
   private val inventory = new mutable.HashMap[String, ItemCount]()
   val spells = new mutable.HashMap[String, Spell]()
-  spells.put("fireball", new Spell("fireball",45,30))
+  spells.put("fireball", new Spell("fireball",45,35))
   spells.put("ice_lance",new Spell("fireball",45,30))
   private var room: Room = RoomBuilder.allRooms(0)
   var directionChosen:Direction = room.getLocations("n")
@@ -165,10 +165,14 @@ class Player extends Serializable {
     val recoverAmount = r.parameter
     r match {
       case _: Potion => {
-        hp = math.min(maxHP, hp + recoverAmount)
+        val x = math.min(maxHP-hp,recoverAmount)
+        hp += math.min(maxHP-hp,recoverAmount)
+        "<br> You recovered for " + x + "hp"
       }
       case _: ManaPotion => {
-        mp = math.min(maxMP, mp + recoverAmount)
+        val x =  math.min(maxMP-mp, recoverAmount)
+        mp += x
+        "<br> You recovered for " + x + "mana"
       }
     }
   }
@@ -182,7 +186,7 @@ class Player extends Serializable {
       }
       else {
         inventory.remove(e.getName)
-        val equi = equip(e)
+        equip(e)
         "you equipped " + e.name
       }
     }
@@ -195,8 +199,9 @@ class Player extends Serializable {
         else inventory.update(r.getName, ItemCount(r, itemQuantity-1))
         val hpRecString =  math.min(maxHP - hp,r.parameter)
         val recAmount = recover(r)
+        recAmount
 
-        "<br> You recovered for " + hpRecString + "hp"
+
       }
     }
   }

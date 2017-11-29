@@ -2,8 +2,7 @@ package command
 
 import java.io.{FileNotFoundException, IOException}
 
-import builders.LevelBuilder.{east, west}
-import builders.RoomBuilder
+
 import item.{Equipment, Item, Key}
 import memorycard.{ResourceManager, SaveData}
 import startgame.GameRunner
@@ -90,8 +89,8 @@ object Commands {
 
   def getPlayerStats(input:String): String = {
 
-    var stats = "Dmg: " + player.attack + " max hp: " + player.maxHP + " max mana: " + player.maxMP + " curr hp: " +
-      player.hp + " curr Mana: " + player.mp  + " def: " + player.defence
+    var stats = "attack dmg: " + player.attack +  " curr hp: " +
+      player.hp + "/" + player.maxHP+ " curr mp: " + player.mp + "/" + player.maxMP + " def: " + player.defence
 
     if (player.armorSlot.isDefined) {
       stats += " armor equipped " + player.armorSlot.get.name
@@ -109,8 +108,14 @@ object Commands {
     itemCount match{
       case null => CommandStrings.noSuchItemInventory
       case _ => {
-        player.use(itemCount.item)
-        "equipped " + itemCount.item.name
+        if (itemCount.item.isEquip) {
+          player.use(itemCount.item)
+          "equipped " + itemCount.item.name
+        }
+        else {
+          itemCount.item.name+ "can not be equipped"
+        }
+
       }
     }
   }
