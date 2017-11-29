@@ -23,15 +23,17 @@ function clickMe(){
             console.log("SUCCESS click me!")
             console.log(data)
             document.getElementById("scrll").innerHTML = myString
+            var objDiv = document.getElementById("scrll");
+            objDiv.scrollTop = objDiv.scrollHeight;
         },
         error: function(){
             alert("Error");
         }
     })
 
-    $("#scrll").animate({ scrollTop: $(this).height()+h }, "fast");
-    h+=400
-    return false;
+    //$("#scrll").animate({ scrollTop: $(this).height()+h }, "fast");
+    //h+=400
+   // return false;
 }
 
 function moveDir(dir){
@@ -47,15 +49,17 @@ function moveDir(dir){
             console.log(data)
 
             document.getElementById("scrll").innerHTML = myString
+            var objDiv = document.getElementById("scrll");
+            objDiv.scrollTop = objDiv.scrollHeight;
         },
         error: function(){
             alert("Error");
         }
     })
 
-    $("#scrll").animate({scrollTop: $(this).height() + h }, "fast");
-    h+=400
-    return false;
+    //$("#scrll").animate({scrollTop: $(this).height() + h }, "fast");
+   // h+=400
+    //return false;
 }
 
 

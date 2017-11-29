@@ -12,7 +12,8 @@ object CommandTest extends  App{
   assert(Commands.attack("s").equals(CommandStrings.noSuchThingToAttack))
   assert(Commands.use("s").equals(CommandStrings.noSuchItemInventory))
   assert(Commands.useLink("old_door").equals(CommandStrings.lockedDoor ))
-  assert(command.Commands.moveDir("s").equals("direction: South: a wind strong wind is coming from above<br>brass_key: it's rusty<br>wolfy: roaring,black fur fangs and stuff"))
+  command.Commands.moveDir("s")
+ // assert(command.Commands.attack("brass_key").equals("that is not a monster"))
   assert(command.Commands.attack("brass_key").equals("that is not a monster"))
   println(command.Commands.attack("wolfy"))
 
