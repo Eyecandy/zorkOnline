@@ -7,7 +7,6 @@ abstract class FatherOfObjects extends Serializable {
   var story:String
   val pickable:Boolean
   def isEquip:Boolean
-
   def getName = name
   def getStory = story
 

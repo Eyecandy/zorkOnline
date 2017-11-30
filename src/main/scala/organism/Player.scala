@@ -12,7 +12,6 @@ case class Spell(name:String,dmg:Int,manaCost:Int) extends Serializable
 
 class Player extends Serializable {
 
-
   var playerLevel = 1
   var exp = 0
   var maxHP = 100
@@ -60,6 +59,10 @@ class Player extends Serializable {
     if (!slot.isEmpty) {
       val old: T = slot.get
       inventory.put(old.getName, ItemCount(old, 1))
+      old match {
+        case _: Weapon => attack-=old.parameter
+        case _: Armor => defence-=old.parameter
+      }
 
       "You unequipped" + old.getName
     }
@@ -115,29 +118,6 @@ class Player extends Serializable {
 
     }
   }
-
-
-
-
-
-//    e match {
-//    case w: Weapon => {
-//      attack = attack+w.parameter
-//      if (weaponSlot == None) weaponSlot = Some(w)
-//      else{
-//        val oldWeapon = weaponSlot.get
-//        inventory.put(oldWeapon.getName, (oldWeapon, 1))
-//      }
-//    }
-//    case a: Armor => {
-//      defence = defence+a.parameter
-//      if (armorSlot == None) armorSlot = Some(a)
-//      else{
-//        val oldArmor = armorSlot.get
-//        inventory.put(oldArmor.getName, (oldArmor, 1))
-//      }
-//    }
-//  }
 
 
   def attack(monsterName:String):String = {

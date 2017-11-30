@@ -14,7 +14,4 @@ object GameRunner {
     MyParser.startParsing()
     println(player.getRoom.getName + ": " + player.getRoom.getStory)
   }
-
-
-
 }

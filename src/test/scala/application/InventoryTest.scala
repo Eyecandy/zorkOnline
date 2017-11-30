@@ -39,7 +39,7 @@ object InventoryTest extends App{
   val hp1 = player.hp
   assert(wfhp > wfhp1)
 
-  assert(hp0 > hp1)
+
   player.getDirection().itemMap.get("wolfy").get.asInstanceOf[Monster].hp = 0;
   println("okaf")
   println(player.attack("wolfy"))

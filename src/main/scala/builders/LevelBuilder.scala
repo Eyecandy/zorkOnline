@@ -6,10 +6,7 @@ import world.{Link, Room}
 import DirStrings._
 
 object LevelBuilder {
-  private val east = "e"
-  private val north = "n"
-  private val south = "s"
-  private val west = "w"
+
   def createWorld(): Unit = {
     RoomBuilder.startingRoom()
     RoomBuilder.secondRoom()

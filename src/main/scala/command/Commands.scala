@@ -184,7 +184,7 @@ object Commands {
       foldLeft("")((acc,dir) => acc + dir._2.getName +": " +dir._2.getStory +
           dir._2.itemMap.foldLeft("")((acc,item) => acc + "<br>" +item._2.name + ": "+item._2.story)
       +"<br><br>")
-    println(dirsString)
+
     val dir  = player.getDirection()
     dirsString
   }
