@@ -4,7 +4,7 @@
 
 ```sh
 $ cd zorkOnline
-$ ./sbt
+$ sbt
 > jetty:start
 > browse
 
