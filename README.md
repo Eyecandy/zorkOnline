@@ -12,6 +12,8 @@ commands:
 open <Door>
 attack <Monster>
 cast <Spell> on <Monster>
+take <Item>
+throw <Item>
 use <Item> 
 unlock <door> with <key>
 equip <Equipment>
